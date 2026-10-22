@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Two-way binding</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <h2>Couleur de la police :</h2>
+    <input type="radio" id="rouge" value="red" v-model="couleur">
+    <label for="rouge">Rouge</label>
+
+    <input type="radio" id="bleu" value="blue" v-model="couleur">
+    <label for="bleu">Bleu</label>
+
+    <br><br>
+    <input type="checkbox" id="afficher" v-model="afficher">
+    <label for="afficher">Afficher/cacher le paragraphe ?</label>
+
+    <p v-show="afficher" :style="{ color: couleur }">
+        Ceci est le paragraphe.
+    </p>
+
+</div>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                couleur: "red",
+                afficher: true
+            }
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>

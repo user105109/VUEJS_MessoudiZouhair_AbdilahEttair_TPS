@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TP Event</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <!-- Exercice 1 -->
+    <h2>Exercice 1</h2>
+    <button @click="titre = 'Cliqué!'">{{ titre }}</button>
+
+    <!-- Exercice 2 -->
+    <h2>Exercice 2</h2>
+    <button @click="decrementer">--</button>
+    {{ compteur }}
+    <button @click="incrementer">++</button>
+
+    <!-- Exercice 3 -->
+    <h2>Exercice 3</h2>
+    <input type="text" v-model="texte">
+    <p v-show="texte.includes(' ')" style="color:red">
+        Les espaces ne sont pas autorisés !
+    </p>
+
+</div>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                titre: "Cliquez moi!",
+                compteur: 0,
+                texte: ""
+            }
+        },
+        methods: {
+            incrementer() { this.compteur++ },
+            decrementer() { this.compteur-- }
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>

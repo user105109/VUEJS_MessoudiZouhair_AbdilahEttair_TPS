@@ -1,0 +1,6 @@
+[
+  { "id": 1, "title": "Réviser Vue.js", "description": "Revoir v-bind et v-on", "completed": false },
+  { "id": 2, "title": "Faire le TP 2", "description": "Terminer le mini-projet", "completed": true },
+  { "id": 3, "title": "Préparer l'exposé", "description": "Slides sur les computed properties", "completed": false },
+  { "id": 4, "title": "Lire la documentation", "description": "Chapitre sur v-if et v-show", "completed": true }
+]

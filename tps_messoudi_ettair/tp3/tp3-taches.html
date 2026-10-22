@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TP 3 - Gestion de tâches</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        button { margin-right: 5px; padding: 5px 10px; cursor: pointer; }
+        .actif { background: #4caf50; color: white; }
+        .tache { border: 1px solid #aaa; margin: 10px 0; padding: 10px; }
+        .terminee { background: #e0ffe0; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <task-list></task-list>
+</div>
+
+<script>
+    const app = Vue.createApp({});
+
+    app.component('TaskList', {
+        data() {
+            return {
+                taches: [],
+                filtre: 'toutes'
+            }
+        },
+        computed: {
+            total() {
+                return this.taches.length;
+            },
+            tachesFiltrees() {
+                if (this.filtre === 'afaire') return this.taches.filter(t => !t.completed);
+                if (this.filtre === 'terminees') return this.taches.filter(t => t.completed);
+                return this.taches;
+            }
+        },
+        methods: {
+            terminer(tache) {
+                tache.completed = true;
+            }
+        },
+        mounted() {
+            fetch('taches.json')
+                .then(r => r.json())
+                .then(data => this.taches = data);
+        },
+        template: `
+        <div>
+          <h2>Liste des tâches</h2>
+          <p>Nombre total de tâches : <b>{{ total }}</b></p>
+
+          <button :class="{ actif: filtre === 'toutes' }" @click="filtre = 'toutes'">Toutes</button>
+          <button :class="{ actif: filtre === 'afaire' }" @click="filtre = 'afaire'">À faire</button>
+          <button :class="{ actif: filtre === 'terminees' }" @click="filtre = 'terminees'">Terminées</button>
+
+          <div v-for="t in tachesFiltrees" :key="t.id"
+               class="tache" :class="{ terminee: t.completed }">
+            <h3>{{ t.title }}</h3>
+            <p>{{ t.description }}</p>
+            <p>État : {{ t.completed ? 'Terminée' : 'À faire' }}</p>
+            <button v-show="!t.completed" @click="terminer(t)">Marquer comme terminée</button>
+          </div>
+        </div>
+      `
+    });
+
+    app.mount('#app');
+</script>
+</body>
+</html>
